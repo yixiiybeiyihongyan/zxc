@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"> 
+	<title>Bootstrap 实例 - 基本表单</title>
+	
+	               <!--H5为了兼容ie8一下浏览器-->
+<!--[if lt IE 9]>
+<script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
+<![endif]-->	
+	
+	<link rel="stylesheet"type="text/css"href="20.css"/>
+	
+	<!--<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">  
+	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+	<style type="text/css">
+		
+	</style>
+</head>
+<body>
+	13262722377
+	<button>创建随机数</button>
+	<div class="class1"><div>
+		<div></div>
+</body>
+    <script type="text/javascript">
+    var acl=document.querySelector("button");
+    var adiv=document.querySelector("div");
+    var json1={};
+    acl.onclick=function(){
+    	var num=Math.random();
+    	var ww=random(35,7);
+    	
+    	json1[num]=ww;
+    	adiv.innerHTML=ww;
+    	window.location.hash=num;
+        //alert(Math.floor(Math.random()*35))// 得到1---35的随机数
+    }
+    window.onhashchange=function(){
+    	adiv.innerHTML=json1[window.location.hash.substring(1)];
+    }
+    function random(all,shu){
+    	var arr=[];
+    	var newall=[];
+    	for(var i=1;i<=all;i++){
+    		arr.push(i);
+    	}
+    	for(var i=0;i<shu;i++){
+            newall.push(arr.splice(Math.floor(Math.random()*arr.length),1));
+    	}
+    	return newall;
+    }
+
+    </script>
+</html>

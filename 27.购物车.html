@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"> 
+	<title>Bootstrap 实例 - 基本表单</title>
+	
+	               <!--H5为了兼容ie8一下浏览器-->
+	<script src="http://cdn.static.runoob.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
+	<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">  
+	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<style type="text/css">
+	*{padding:0;margin:0;}
+	body{min-width:80rem;max-width:100%;}
+	li{height:21rem;border:1px solid #000}
+	img{height:200px;width:200px;} 
+	ul{position:relative;left:100px;top:10px}
+    #div{height:300px;width:400px;border:1px solid #000;position:absolute;top:22rem;left:96px;}
+    span{width:100px;display:inline-block}
+    p{border-bottom:1px dashed #000;height:20px;}
+    #jg{float:right;padding:0 10px;}
+    </style>
+</head>
+<body>
+	<ul class="list-inline">
+		<li draggable="true">
+			<img src="r.jpg">
+			<dl class="dl-horizontal">
+				<dt>徐宁</dt>
+				<dd>24</dd>
+			</dl>
+		</li>
+		<li draggable="true">
+			<img src="q.jpg">
+			<dl class="dl-horizontal">
+				<dt>徐宁</dt>
+				<dd>25</dd>	
+			</dl>
+		</li>
+		<li draggable="true">
+			<img src="w.jpg">
+			<dl class="dl-horizontal">
+				<dt>这是</dt>
+				<dd>18</dd>
+			</dl>
+		</li>
+		<li draggable="true">
+			<img src="t.jpg">
+			<dl class="dl-horizontal">
+				<dt>徐宁</dt>
+				<dd>26</dd>
+			</dl>
+		</li>
+	</ul>
+	<div id="div">
+		<!--<p>
+			<span class="box1">1</span>
+			<span class="box2">许宁</span>
+			<span class="box3">25</span>
+		</p>
+		<p>
+			<span class="box1">1</span>
+			<span class="box2">许宁</span>
+			<span class="box3">25</span>
+		</p>
+		<div id="jg"class="text-right">90￥</div>-->
+	</div>
+</body>
+<script type="text/javascript">
+	window.onload=function(){
+		var ali=document.getElementsByTagName("li");
+		var adiv=document.getElementById("div");
+		var odiv=null;
+		var obj={};
+		var num=0;
+		
+		for(var i=0;i<ali.length;i++){
+			ali[i].index=i;
+			ali[i].ondragstart=function(ev){     //拖动什么
+				var ev=ev||window.event;  //兼容
+				var adt=this.getElementsByTagName("dt")[0];//得到 li 下面的p
+				var add=this.getElementsByTagName("dd")[0];
+				ev.dataTransfer.setData("title",adt.innerHTML);
+//				alert(adt.innerHTML)
+				ev.dataTransfer.setData("money",add.innerHTML);
+//				alert(add.innerHTML)
+				ev.dataTransfer.setDragImage(this,0,0);
+			}
+		}
+		adiv.ondragover=function(ev){  //，无法将数据/元素放置到其他元素中
+			var ev=ev||window.event;
+			ev.preventDefault();
+		}
+		adiv.ondrop=function(ev){     //进行放置
+			var ev=ev||window.event;
+			ev.preventDefault();
+			var atitle=ev.dataTransfer.getData("title");
+			var amoney=ev.dataTransfer.getData("money");
+			for(var i=0;i<ali.length;i++){
+				ali[i].index=1;
+			}
+			if(!obj[amoney]){
+				var op=document.createElement("p");
+			
+				var span1=document.createElement("span");
+				span1.className="box1";
+				span1.innerHTML=1;
+				op.appendChild(span1);
+				var span2=document.createElement("span");
+				span2.className="box2";
+				span2.innerHTML=atitle;
+				op.appendChild(span2);
+				var span3=document.createElement("span");
+				span3.className="box3";
+				span3.innerHTML=amoney;
+				op.appendChild(span3);
+				adiv.appendChild(op);
+				obj[amoney]=2;
+			}else{
+				var abox=document.getElementsByClassName("box1");
+				var bbox=document.getElementsByClassName("box3");
+				for(var i=0;i<abox.length;i++){
+					if(bbox[i].innerHTML==amoney){
+						abox[i].innerHTML=parseInt(abox[i].innerHTML)+1;
+					}
+				}
+			}
+			if(!odiv){
+				odiv=document.createElement("div");
+				odiv.id="jg";
+			}
+				num+=parseInt(amoney);
+			    odiv.innerHTML=num;
+			    adiv.appendChild(odiv);
+		}
+    }
+</script>
+</html>

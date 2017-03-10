@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"> 
+	<title>Bootstrap 实例 - 基本表单</title>
+	
+	               <!--H5为了兼容ie8一下浏览器-->
+	<script src="http://cdn.static.runoob.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
+	
+	
+	<!--<link rel="stylesheet"type="text/css"href="20.css"/>-->
+	
+	<!--<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">  
+	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+	<style type="text/css">
+	*{padding:0;margin:0}
+	html{font-size:62.5%;}
+	body{min-width:800px;
+	     max-width:100%;
+	     font-size:1.6em;
+	     
+	}
+	#div1{text-align:center;line-height:20rem;width:20rem;height:20rem;border:1px solid #000;color:blue;
+	position:relative;margin:5rem 0 0 20rem;background:red;text-shadow:2px 2px 2px yellow;box-shadow:2px 2px 2px #000}
+    </style>
+</head>
+<body>
+	<div id="div1">将文件拖拽到此区域</div>
+	<ul id="ul1"></ul>
+</body>
+    <script type="text/javascript">
+    window.onload=function(){
+    	var adiv=document.getElementById("div1");
+    	var aul=document.getElementById("ul1");
+    	adiv.ondragenter=function(){
+    		this.innerHTML="可以释放了";
+    	}
+    	adiv.ondragover=function(ev){
+    		var ev=ev||window.event;
+    		ev.preventDefault();
+    	}
+    	adiv.ondragleave=function(){
+    		this.innerHTML="将文件拖拽到此区域";
+    	}
+    	adiv.ondrop=function(ev){
+    		var ev=ev||window.event;
+    		ev.preventDefault();
+    		var fs=ev.dataTransfer.files;   //获取到外部拖拽文件的信息    是个集合
+//  		alert(fs[0].type)
+//          if(fs[0].type.indexOf("image",-1)){
+//          	alert("上传图片")
+//          }else{
+//          	var fr=new FileReader();
+//	    		fr.readAsDataURL(fs[0]); 
+//	    		fr.onload=function(){
+//	    			var ali=document.createElement("li");
+//	    			var aimg=document.createElement("img");
+//	    			aimg.src=this.result;
+//	    			ali.appendChild(aimg);
+//	    			aul.appendChild(ali);
+//	    			
+//	    		}
+//          }
+            for(var i=0;i<fs.length;i++){
+            	if(fs[0].type.indexOf("image",-1)){
+            	    alert("上传图片");
+	            }else{
+	            	var fr=new FileReader();  //创建者  用来读取文件信息  它是一个 对象      在这对象下面有个方法来读取文件信息
+		    		fr.readAsDataURL(fs[0]);   //他是用来读取文件信息的 
+		    		fr.onload=function(){      //当文件读取成功后走这个事件；
+		    			var ali=document.createElement("li");
+		    			var aimg=document.createElement("img");
+		    			aimg.src=this.result;
+		    			ali.appendChild(aimg);
+		    			aul.appendChild(ali);
+		    			
+		    		}
+            }
+            }
+    		
+    		
+    		
+    	}
+    }
+    </script>
+</html>
